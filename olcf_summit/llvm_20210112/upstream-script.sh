@@ -4,7 +4,7 @@ prefix=`pwd`
 # the actual install folder is INSTALL_FOLDER below
 install_path=$prefix
 
-module load git gcc/8.1.1
+module load git cmake gcc/8.1.1
 cd $prefix
 
 if [ ! -d $prefix/llvm-project ] ; then
