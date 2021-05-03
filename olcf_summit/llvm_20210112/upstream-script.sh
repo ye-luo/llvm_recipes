@@ -4,7 +4,7 @@ prefix=`pwd`
 # the actual install folder is INSTALL_FOLDER below
 install_path=$prefix
 
-module load gcc/8.1.1
+module load git gcc/8.1.1
 cd $prefix
 
 if [ ! -d $prefix/llvm-project ] ; then
@@ -12,7 +12,7 @@ if [ ! -d $prefix/llvm-project ] ; then
 fi
 
 cd $prefix/llvm-project
-git co bdd1ad5e5c57ae0f0bf899517c540ad8a679f01a
+git checkout bdd1ad5e5c57ae0f0bf899517c540ad8a679f01a
 patch -p1 < ../openmp.cmake.patch
 
 build_folder=build_main_offload_patched
