@@ -1,6 +1,8 @@
 prefix=/ccs/home/yeluo/opt/llvm-clang
 install_path=/ccs/proj/mat151/opt/llvm
 
+module load git cmake gcc/8.1.1 cuda
+
 cd $prefix
 
 if [ ! -d $prefix/llvm-project ] ; then
@@ -41,7 +43,7 @@ fi
 #rm -rf $prefix/$build_folder
 mkdir $prefix/$build_folder ; cd $prefix/$build_folder
 
-cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ \
+cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
     -DCMAKE_BUILD_TYPE=Release \
     -DGCC_INSTALL_PREFIX=/sw/summit/gcc/8.1.1 \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_FOLDER \
