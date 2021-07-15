@@ -3,7 +3,7 @@ prefix=`pwd`
 # install_path where to install the compiler
 # the actual install folder is INSTALL_FOLDER below
 # on OLCF summit, storage space without purging policy is recommended /ccs/proj/[projid]
-install_path=$prefix
+install_path=$prefix/llvm
 
 module load git cmake gcc/8.1.1 cuda
 cd $prefix
