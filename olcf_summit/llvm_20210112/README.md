@@ -1,12 +1,12 @@
 1. edit install_path in upstream-script.sh. On OLCF summit, storage space without purging policy is recommended /ccs/proj/[projid]. So install_path=/ccs/proj/[projid]/llvm
 
-2. execute upstream-script.sh. About 20 minutes when the disk I/O is smooth.
+2. execute upstream-script.sh. About ~30 minutes when the disk I/O is smooth.
 
 3. edit the module file ../modules/llvm/main-20210112.lua by updateding
      PATH to /ccs/proj/[projid]/llvm/main-20210112/bin
      LD_LIBRARY_PATH to  /ccs/proj/[projid]/llvm/main-20210112/lib
 
-4. update module path. obtain the path by `readlink -f ../modules`, save it as LLVM_MODULE_PATH
+4. prepend module path. Obtain the path by `readlink -f ../modules`, save it as LLVM_MODULE_PATH
 
 ```
    module use $LLVM_MODULE_PATH
