@@ -1,6 +1,9 @@
 prefix=`pwd`
 install_path=/soft/llvm
 
+CC=gcc
+CXX=g++
+
 cd $prefix
 
 if [ ! -d $prefix/llvm-project ] ; then
@@ -20,7 +23,7 @@ if [ $# -eq 0 ] ; then
   #git fetch jdoerfert
   #git co feature/declare_variant_begin
   #git reset --hard jdoerfert/feature/declare_variant_begin
-  PACKAGES="clang;compiler-rt;lld;lldb;openmp"
+  PACKAGES="clang;compiler-rt;lld;openmp"
   RUNTIMES="libcxxabi;libcxx"
 elif [ $1 == "patched" ] ; then
   echo building patch
@@ -44,7 +47,7 @@ fi
 rm -rf $prefix/$build_folder
 mkdir $prefix/$build_folder ; cd $prefix/$build_folder
 
-cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
+cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_FOLDER \
     -DLLVM_ENABLE_BACKTRACES=ON \
@@ -55,7 +58,6 @@ cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DLLVM_ENABLE_PROJECTS="$PACKAGES" \
     -DLLVM_ENABLE_RUNTIMES="$RUNTIMES" \
-    -DLIBOMPTARGET_NVPTX_COMPUTE_CAPABILITIES="80,61" \
     -DCLANG_OPENMP_NVPTX_DEFAULT_ARCH=sm_80 \
     -DLIBOMPTARGET_ENABLE_DEBUG=ON \
     ../llvm-project/llvm
