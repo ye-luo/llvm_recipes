@@ -31,15 +31,24 @@ elif [ $1 == "patched" ] ; then
   build_folder=build_mirror_offload_patched
   INSTALL_FOLDER=$install_path/main-patched
   #INSTALL_FOLDER=$install_path/main-20210112
-  PACKAGES="clang;lld;openmp"
+  PACKAGES="clang;compiler-rt;lld;openmp"
   RUNTIMES="libcxxabi;libcxx"
 else
   echo building release $1
   echo -----------------------------------
   build_folder=build_mirror_offload_release
-  INSTALL_FOLDER=$install_path/release-$1
   git fetch
-  git co llvmorg-$1
+  version=$1
+  git co llvmorg-$version
+  if [ $? != 0 ] ; then
+    version=`echo $1 | sed "s/release\///"`
+    git co release/$version
+    if [ $? != 0 ] ; then
+      echo "Neither llvmorg-$version nor release/$version branch was found."
+      exit 1
+    fi
+  fi
+  INSTALL_FOLDER=$install_path/release-$version
   PACKAGES="clang;compiler-rt;lld;openmp"
   RUNTIMES="libcxxabi;libcxx"
 fi
