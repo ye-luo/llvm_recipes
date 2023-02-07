@@ -43,6 +43,7 @@ else
   if [ $? != 0 ] ; then
     version=`echo $1 | sed "s/release\///"`
     git co release/$version
+    git pull
     if [ $? != 0 ] ; then
       echo "Neither llvmorg-$version nor release/$version branch was found."
       exit 1
