@@ -1,7 +1,10 @@
 prefix=`pwd`
 install_path=/soft/compilers/llvm
 
-module load cmake/3.23.2
+module use /soft/modulefiles
+module load spack-pe-base cmake
+module load gcc-native/12.3
+module load cudatoolkit-standalone/12.2.2
 
 cd $prefix
 
@@ -45,14 +48,14 @@ else
     fi
   fi
   INSTALL_FOLDER=$install_path/release-$version
-  PACKAGES="clang;compiler-rt;lldb;lld;openmp"
-  RUNTIMES="libcxxabi;libcxx"
+  PACKAGES="clang;compiler-rt;lldb;lld;mlir;flang"
+  RUNTIMES="libcxxabi;libcxx;openmp"
 fi
 
 rm -rf $prefix/$build_folder
 mkdir $prefix/$build_folder ; cd $prefix/$build_folder
 
-cmake -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ \
+cmake -DCMAKE_C_COMPILER=gcc-12 -DCMAKE_CXX_COMPILER=g++-12 \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_FOLDER \
     -DGCC_INSTALL_PREFIX=/opt/cray/pe/gcc/11.2.0/snos \
