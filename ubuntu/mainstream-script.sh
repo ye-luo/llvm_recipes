@@ -74,11 +74,14 @@ cmake -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX \
     -DLLVM_ENABLE_ASSERTIONS=ON \
     -DLLVM_ENABLE_PROJECTS="$PACKAGES" \
     -DLLVM_ENABLE_RUNTIMES="$RUNTIMES" \
+    -DLLVM_RUNTIME_TARGETS='default;amdgcn-amd-amdhsa;nvptx64-nvidia-cuda' \
+    -DRUNTIMES_amdgcn-amd-amdhsa_LLVM_ENABLE_RUNTIMES='openmp' \
+    -DRUNTIMES_nvptx64-nvidia-cuda_LLVM_ENABLE_RUNTIMES='openmp' \
     -DLIBOMPTARGET_ENABLE_DEBUG=ON \
     -DLLVM_PARALLEL_LINK_JOBS=4 \
     -DLLVM_BINUTILS_INCDIR=/usr/include \
     ../llvm-project/llvm && make -j15 -k
 
-make -j32 install && echo --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/11 > $INSTALL_FOLDER/bin/x86_64-unknown-linux-gnu.cfg && chmod -w -R $INSTALL_FOLDER
+make -j16 install && echo --gcc-install-dir=/usr/lib/gcc/x86_64-linux-gnu/11 > $INSTALL_FOLDER/bin/x86_64-unknown-linux-gnu.cfg && chmod -w -R $INSTALL_FOLDER
 
 chmod -R -w $INSTALL_FOLDER
